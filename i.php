@@ -179,6 +179,10 @@ function parse_request()
 
   $req = ltrim($req, '/');
 
+  // This is a hack: decode '%26' in the requst url back to the original '&'.
+  // See also the file 'include/derivative.inc.php'.
+  $req = str_replace('%26', '&', $req);
+
   foreach (preg_split('#/+#', $req) as $token)
   {
     preg_match($conf['sync_chars_regex'], $token) or ierror('Invalid chars in request', 400);

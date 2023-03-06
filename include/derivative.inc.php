@@ -371,6 +371,12 @@ final class DerivativeImage
 
     if ($url_style == 2)
     {
+      // This is a hack: add support for the '&' character in the names of synchronised
+      // files and folders by encoding it to '%26' in urls to make sure it doesn't conflict
+      // with the normal '&' parameter separator that is used in query strings.
+      // See also the file '../i.php'.
+      $loc = str_replace('&', '%26', $loc);
+
       $rel_url = 'i';
       if ($conf['php_extension_in_urls']) $rel_url .= '.php';
       if ($conf['question_mark_in_urls']) $rel_url .= '?';
